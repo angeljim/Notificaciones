@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ActivityMonitor</string>
+
+    <string name="save">Save</string>
+    <string name="account_save">Save</string>
+    <string name="login_id">Phone Number</string>
+    <string name="login_id_required">You must write your phone number</string>
+    <string name="feel">How do you feel right now?</string>
+    <string-array name="swipe_hints">
+        <item>Swipe down to confirm</item>
+        <item>Swipe left to confirm</item>
+        <item>Swipe up to confirm</item>
+        <item>Swipe right to confirm</item>
+    </string-array>
+</resources>

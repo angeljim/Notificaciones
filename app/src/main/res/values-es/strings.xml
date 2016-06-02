@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ActivityMonitor</string>
+    <string name="feel">¿Cómo te sientes ahora?</string>
+    <string name="login_id">Número de Teléfono</string>
+    <string name="login_id_required">Debes escribir tu número telefónico</string>
+    <string-array name="swipe_hints">
+        <item>Desliza el dedo hacia abajo para confirmar</item>
+        <item>Desliza el dedo hacia la izquierda para confirmar</item>
+        <item>Desliza el dedo hacia arriba para confirmar</item>
+        <item>Desliza el dedo hacia la derecha para confirmar</item>
+    </string-array>
+</resources>
