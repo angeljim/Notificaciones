@@ -80,6 +80,7 @@ public class NotificationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand");
         this.eventBus = EventBus.getDefault();
+        this.eventBus.register(this);
         this.notificationGenerator = ActivityMonitorApplication.getAndroidComponent().getNotificationGenerator();
         this.notificationGenerator.generate();
         return START_STICKY;

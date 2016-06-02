@@ -1,5 +1,7 @@
 package cl.uai.modlab.activitymonitor.notifications;
 
+import android.util.Log;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
@@ -35,7 +37,7 @@ public final class NotificationGenerator {
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         double mean = meanTimes[hour]; // in minutes
         // step 2: get the waiting time using the poisson fn
-        long interval = (long)poissonRandomInterarrivalDelay(mean*1000.0); //60*
+        long interval = (long)poissonRandomInterarrivalDelay(mean*1000.0*60);
         // step 3: set the timer for the next time
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -48,10 +50,10 @@ public final class NotificationGenerator {
             }
         };
         timer.schedule(timerTask, interval);
+        Log.d("NotificationGenerator", " -----> " + interval + " seconds");
     }
 
-    // Note L == 1 / lambda
     private double poissonRandomInterarrivalDelay(double L) {
-        return Math.log(Math.random())/-L;
+        return Math.log(Math.random())*-L;
     }
 }
