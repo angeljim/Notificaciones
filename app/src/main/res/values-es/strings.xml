@@ -10,4 +10,6 @@
         <item>Desliza el dedo hacia arriba para confirmar</item>
         <item>Desliza el dedo hacia la derecha para confirmar</item>
     </string-array>
+    <string name="account_save">Guardar</string>
+    <string name="save">Guardar</string>
 </resources>
