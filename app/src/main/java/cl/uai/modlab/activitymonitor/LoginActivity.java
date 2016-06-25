@@ -1,18 +1,18 @@
 package cl.uai.modlab.activitymonitor;
 
 import android.Manifest;
+import android.app.ActivityManager;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.tumblr.remember.Remember;
@@ -42,28 +42,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        final EditText editText = (EditText)findViewById(R.id.user_input);
-        String previousId = Remember.getString(ActivityMonitorConstants.PREFERENCE_USER_ID, "");
-        assert editText != null;
-        editText.setText(previousId);
-        final Button saveButton = (Button) findViewById(R.id.save_button);
-        assert saveButton != null;
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String userId = editText.getText().toString().trim();
-                if (userId.length() > 0) {
-                    Remember.putString(ActivityMonitorConstants.PREFERENCE_USER_ID, userId);
-                    Intent startNotificationServiceIntent = new Intent(LoginActivity.this, NotificationService.class);
-                    startService(startNotificationServiceIntent);
-                    Intent startContextCaptureServiceIntent = new Intent(LoginActivity.this, ContextCaptureService.class);
-                    startService(startContextCaptureServiceIntent);
-                    finish();
-                } else {
-                    Toast.makeText(LoginActivity.this, R.string.login_id_required, Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (Remember.getString(ActivityMonitorConstants.PREFERENCE_USER_ID, "").trim().length() == 0)
+            ft.replace(R.id.login_fragment, new LoginFragment());
+        else
+            ft.replace(R.id.login_fragment, new ThankYouFragment());
+        ft.commit();
+
         checkPermissions();
     }
 
@@ -80,6 +66,14 @@ public class LoginActivity extends AppCompatActivity {
                     Remember.putString(ActivityMonitorConstants.PREFERENCE_DEVICE_ID, telephonyManager.getDeviceId());
                 } else {
                     Remember.putString(ActivityMonitorConstants.PREFERENCE_DEVICE_ID, ActivityMonitorConstants.PREFERENCE_DEVICE_ID_DEFAULT);
+                }
+                if (!isMyServiceRunning(NotificationService.class)) {
+                    Intent startNotificationServiceIntent = new Intent(LoginActivity.this, NotificationService.class);
+                    startService(startNotificationServiceIntent);
+                }
+                if (!isMyServiceRunning(ContextCaptureService.class)) {
+                    Intent startContextCaptureServiceIntent = new Intent(LoginActivity.this, ContextCaptureService.class);
+                    startService(startContextCaptureServiceIntent);
                 }
             }
         }
@@ -98,8 +92,26 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 ActivityCompat.requestPermissions(this, PERMISSIONS, ActivityMonitorConstants.PERMISSIONS_REQUEST);
             }
+        } else {
+            if (!isMyServiceRunning(NotificationService.class)) {
+                Intent startNotificationServiceIntent = new Intent(LoginActivity.this, NotificationService.class);
+                startService(startNotificationServiceIntent);
+            }
+            if (!isMyServiceRunning(ContextCaptureService.class)) {
+                Intent startContextCaptureServiceIntent = new Intent(LoginActivity.this, ContextCaptureService.class);
+                startService(startContextCaptureServiceIntent);
+            }
         }
     }
 
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

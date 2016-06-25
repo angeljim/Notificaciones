@@ -84,8 +84,7 @@ public abstract class AbstractPostThread extends Thread
 		int status = httpResponse.getStatusLine().getStatusCode();
 		String response = convertStreamToString(httpResponse.getEntity().getContent());
 		httpclient.getConnectionManager().shutdown();
-		
-		if (status != STATUS_OK || !expectedResponse.equals(response))
+		if (status != STATUS_OK || (expectedResponse != null && !expectedResponse.equals(response)))
 		{
 			throw new DataHandlerException(DataHandlerException.POST_FAILED);
 		}

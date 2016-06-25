@@ -35,6 +35,7 @@ public final class NotificationManager {
 
     private final static AtomicInteger ID_GENERATOR = new AtomicInteger(0);
 
+    private int previousId;
     private EventBus eventBus;
     private Context context;
 
@@ -65,6 +66,13 @@ public final class NotificationManager {
     }
 
     private void showNotification(int id, NotificationEvent event) {
+        if (previousId != 0) {
+            try {
+                android.app.NotificationManager notificationManager = (android.app.NotificationManager) this.context.getSystemService(this.context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(previousId);
+            } catch (Exception ignore) { }
+        }
+        this.previousId = id;
         Intent intent = new Intent(context, SurveyActivity.class);
         intent.putExtra(ActivityMonitorConstants.EXTRAS_NOTIFICATION_ID, id);
         PendingIntent pendingIntent =
@@ -84,11 +92,13 @@ public final class NotificationManager {
                         dismissIntent,
                         PendingIntent.FLAG_CANCEL_CURRENT
                 );
+        String title = event.getTitle();
+        String message = event.getMessage();
         PugNotification.with(context)
                 .load()
                 .identifier(id)
-                .title(event.getTitle())
-                .message(event.getMessage())
+                .title(title == null?this.context.getString(R.string.app_name):title)
+                .message(message == null?this.context.getString(R.string.new_notification):message)
                 //.bigTextStyle(bigtext)
                 .smallIcon(R.drawable.ic_notification)
                 //.largeIcon(largeIcon)

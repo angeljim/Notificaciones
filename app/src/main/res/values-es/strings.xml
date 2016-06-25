@@ -12,4 +12,12 @@
     </string-array>
     <string name="account_save">Guardar</string>
     <string name="save">Guardar</string>
+    <string name="login_email">Dirección de Email</string>
+    <string name="login_email_required">Debes ingresar tu dirección de email</string>
+    <string name="new_notification">Tienes una nueva notificación</string>
+    <string name="login_message">Gracias por descargar la aplicación.\n Por favor completa el formulario que se muestra a continuación para participar en la investigación.</string>
+    <string name="thankyou_headline">Ya estás participando</string>
+    <string name="thankyou_message">Pronto recibirás notificaciones. Recuerda que no tienes la obligación de responder cada una de ellas.</string>
+    <string name="thankyou_info">Toda la información recopilada es anónima y no será compartida con terceros. \nEsta aplicación sólo utiliza Wi-Fi para enviar datos. No va a consumir MB de su plan de datos móviles. \nUna vez que termine el estudio, usted recibirá un correo electrónico. Este correo electrónico contiene un enlace a una encuesta que debe responder. \nPara cualquier información adicional, por favor contacte con nosotros en ignacio.menares@ing.uchile.cl</string>
+    <string name="survey_thanks">Gracias por responder</string>
 </resources>

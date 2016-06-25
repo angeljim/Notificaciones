@@ -6,10 +6,18 @@
     <string name="login_id">Phone Number</string>
     <string name="login_id_required">You must write your phone number</string>
     <string name="feel">How do you feel right now?</string>
+    <string name="login_email">Email Address</string>
     <string-array name="swipe_hints">
         <item>Swipe down to confirm</item>
         <item>Swipe left to confirm</item>
         <item>Swipe up to confirm</item>
         <item>Swipe right to confirm</item>
     </string-array>
+    <string name="login_email_required">You must write your email address</string>
+    <string name="new_notification">You have a new notification</string>
+    <string name="login_message">Thank you for downloading the application.\n Please fill up the following form to participate in the research.</string>
+    <string name="survey_thanks">Thank you!</string>
+    <string name="thankyou_headline">You are in!</string>
+    <string name="thankyou_message">Soon you\'ll start receiving notifications. Remember that it is not mandatory to perform an action on all of them.</string>
+    <string name="thankyou_info">All the collected information is anonymous and will not be shared with a third party.\nThis application only uses WiFi to send data. It will not consume MB from your mobile data plan.\n Once the study is over you will receive an email letting you know. This email contains a link to a survey that you must answer.\n For any additional information, please contact ignacio.menares@ing.uchile.cl</string>
 </resources>

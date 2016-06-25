@@ -37,15 +37,17 @@ public final class NotificationGenerator {
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         double mean = meanTimes[hour]; // in minutes
         // step 2: get the waiting time using the poisson fn
-        long interval = (long)poissonRandomInterarrivalDelay(mean*1000.0*60);
+
+        long interval = 0L;
+        do {
+            interval = (long)poissonRandomInterarrivalDelay(mean*1000.0*60);
+        } while (interval < (mean/3)*60*1000);
         // step 3: set the timer for the next time
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 NotificationEvent event = new NotificationEvent();
-                event.setTitle("Activity Monitor");
-                event.setMessage("Es tiempo de notificación");
                 NotificationGenerator.this.eventBus.post(event);
             }
         };

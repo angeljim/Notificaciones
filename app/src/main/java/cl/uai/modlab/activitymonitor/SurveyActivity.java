@@ -8,6 +8,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.pwittchen.swipe.library.Swipe;
 import com.github.pwittchen.swipe.library.SwipeEvent;
@@ -64,6 +65,7 @@ public class SurveyActivity extends AppCompatActivity implements EmojiconGridFra
                             viewIntent.putExtra(ActivityMonitorConstants.EXTRAS_FEELING, emojiconTextView.getText());
                             viewIntent.putExtra(ActivityMonitorConstants.EXTRAS_ACTION_TYPE, ActivityMonitorConstants.EXTRAS_ACTION_TYPE_VIEW);
                             SurveyActivity.this.sendBroadcast(viewIntent);
+                            Toast.makeText(SurveyActivity.this, R.string.survey_thanks, Toast.LENGTH_SHORT).show();
                             SurveyActivity.this.finish();
                         }
                     }

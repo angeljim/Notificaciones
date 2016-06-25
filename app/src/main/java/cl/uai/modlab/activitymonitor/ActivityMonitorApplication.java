@@ -1,6 +1,9 @@
 package cl.uai.modlab.activitymonitor;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.tumblr.remember.Remember;
 
@@ -12,7 +15,7 @@ import cl.uai.modlab.activitymonitor.notifications.NotificationManager;
 /**
  * Created by gohucan on 17-04-16.
  */
-public class ActivityMonitorApplication extends Application {
+public class ActivityMonitorApplication extends MultiDexApplication {
 
     private static AndroidComponent androidComponent;
 
@@ -25,6 +28,12 @@ public class ActivityMonitorApplication extends Application {
         Remember.init(getApplicationContext(), "cl.modlab.uai.activitymonitor");
         // initializes the notification manager
         NotificationManager nm = new NotificationManager(this);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     public static AndroidComponent getAndroidComponent() {

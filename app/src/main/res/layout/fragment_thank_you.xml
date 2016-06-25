@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cl.uai.modlab.activitymonitor.ThankYouFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/thankyou_headline"
+        android:layout_margin="10dp"
+        android:textColor="#aa0d0d"
+        android:textSize="@dimen/abc_text_size_headline_material" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/thankyou_message"
+        android:layout_margin="20dp"
+        android:textColor="#aa0d0d" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#aa0d0d"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/thankyou_info"
+        android:layout_margin="20dp"
+        />
+
+</LinearLayout>

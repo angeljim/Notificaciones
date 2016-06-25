@@ -57,23 +57,24 @@ public class AsyncWiFiOnlyEncryptedDatabase extends AbstractAsyncTransferLogger
         // Note: any additional parameters (e.g., API key-value) that your URL
         // requires
         HashMap<String, String> params = new HashMap<String, String>();
-        //params.put(RemoteServerDetails.API_KEY_KEY, RemoteServerDetails.API_KEY_VALUE);
+        //params.put(RemoteServerDetails.UPLOADCARE_PUB_KEY, RemoteServerDetails.UPLOADCARE_PUB_KEY_VALUE);
+        //params.put(RemoteServerDetails.UPLOADCARE_STORE, RemoteServerDetails.UPLOADCARE_STORE_VALUE);
         return params;
     }
 
     @Override
     protected long getDataLifeMillis()
     {
-        // Note: all data that is more than 5 minute old will be transferred
-        return 1000L * 60 * 5;
+        // Note: all data that is more than 1 hour old will be transferred
+        return 1000L * 60 * 60;
     }
 
     @Override
     protected long getTransferAlarmLengthMillis()
     {
-        // Note: transfer alarm will fire every minute
-        Log.d(DataTransfer.TAG, "getTransferAlarmLengthMillis => "+(1000L * 60));
-        return 1000L * 60;
+        // Note: transfer alarm will fire every 30 minutes
+        Log.d(DataTransfer.TAG, "getTransferAlarmLengthMillis => "+(1000L * 60 * 30));
+        return 1000L * 60 * 30;
     }
 
     @Override
@@ -93,7 +94,8 @@ public class AsyncWiFiOnlyEncryptedDatabase extends AbstractAsyncTransferLogger
     protected String getUniqueUserId()
     {
         // Note: this should not be a static string
-        return Remember.getString(ActivityMonitorConstants.PREFERENCE_USER_ID,
+        return Remember.getString(ActivityMonitorConstants.PREFERENCE_USER_EMAIL,"") +
+                Remember.getString(ActivityMonitorConstants.PREFERENCE_USER_ID,
                 ActivityMonitorConstants.PREFERENCE_USER_ID_DEFAULT);
     }
 
